@@ -31,7 +31,10 @@ double fast_avg_no_first_el_rgba_8_8(const double pixels[_Nonnull 32][32]);
 #pragma mark - Perceptual Hashes
 
 OSHashType phash_rgba_8_8(const double pixels[_Nonnull 32][32], double dctAverage);
+OSHashType phash_rgba(const double pixels[_Nonnull 32][32], double dctAverage);
 OSHashType ahash_rgba_8_8(const unsigned char *pixels);
+OSHashType ahash_rgba(const unsigned char *pixels, int length);
 OSHashType dhash_rgba_9_9(const unsigned char *pixels);
+OSHashType dhash_rgba(const unsigned char *pixels, int length);
 
 NS_ASSUME_NONNULL_END

@@ -51,6 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
              withProviderId:(OSImageHashingProviderId)providerId;
 
 /**
+ * @see -[OSImageHashingProvider hashByte:]
+ */
+- (OSHashType)hashByte:(const unsigned char *)pixelByte length:(int)length
+             withProviderId:(OSImageHashingProviderId)providerId;
+
+/**
  * @see -[OSImageHashingProvider hashDistanceSimilarityThreshold]
  */
 - (OSHashDistanceType)hashDistanceSimilarityThresholdWithProvider:(OSImageHashingProviderId)providerId;

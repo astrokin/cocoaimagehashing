@@ -435,6 +435,14 @@ inline OSHashType phash_rgba_8_8(const double pixels[32][32], double dctAverage)
     return result;
 }
 
+inline OSHashType phash_rgba(const double pixels[32][32], double dctAverage)
+{
+    unsigned char cnt = 0;
+    OSHashType result = 0;
+    UNROLL_PHASH_X()
+    return result;
+}
+
 #undef UNROLL_PHASH_X
 #undef UNROLL_PHASH_Y
 #undef INLINE_PHASH
@@ -476,6 +484,16 @@ inline OSHashType phash_rgba_8_8(const double pixels[32][32], double dctAverage)
     UNROLL_ASHASH_Y(7)
 
 inline OSHashType ahash_rgba_8_8(const unsigned char *pixels)
+{
+    OSHashType result = 0;
+    double grey = 0.0, average = 0.0;
+    unsigned char red = 0, green = 0, blue = 0, cnt = 0;
+    average = avg_greyscale_value_rgba_8_8(pixels);
+    UNROLL_ASHASH_X()
+    return result;
+}
+
+inline OSHashType ahash_rgba(const unsigned char *pixels, int length)
 {
     OSHashType result = 0;
     double grey = 0.0, average = 0.0;
@@ -541,6 +559,20 @@ inline OSHashType dhash_rgba_9_9(const unsigned char *pixels)
     double greyLeft = 0.0, greyRight = 0.0;
     unsigned char redLeft = 0, redRight = 0, greenLeft = 0, greenRight = 0, blueLeft = 0, blueRight = 0, cnt = 0;
     UNROLL_DHASH_X()
+    return result;
+}
+
+
+inline OSHashType dhash_rgba(const unsigned char *pixels, int length)
+{
+    OSHashType result = 0;
+    double greyLeft = 0.0, greyRight = 0.0;
+    unsigned char redLeft = 0, redRight = 0, greenLeft = 0, greenRight = 0, blueLeft = 0, blueRight = 0, cnt = 0;
+//    UNROLL_DHASH_X()
+    for (int i = 0; i < length; i++) {
+        INLINE_DHASH(0, i);
+    }
+//    pixels += 4*length;
     return result;
 }
 

@@ -6,7 +6,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 #pragma mark - Cross Platform Type Aliases
 
@@ -104,6 +104,11 @@ NS_ASSUME_NONNULL_BEGIN
  * @see -[OSImageHashing hashImage:]
  */
 - (OSHashType)hashImageData:(NSData *)imageData;
+
+/**
+ * [OSImageHashing hashByte: length:]
+ */
+- (OSHashType)hashByte:(const unsigned char *)pixelByte length:(int)length;
 
 /**
  * Calculate the hash distance between two fingerprints/hashes.

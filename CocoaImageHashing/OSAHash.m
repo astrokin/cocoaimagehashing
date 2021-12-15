@@ -40,6 +40,11 @@ static const OSHashDistanceType OSAHashDistanceThreshold = 10;
     return result;
 }
 
+- (OSHashType)hashByte:(const unsigned char *)pixelByte length:(int)length {
+    OSHashType result = ahash_rgba(pixelByte, length);
+    return result;
+}
+
 - (OSHashDistanceType)hashDistanceSimilarityThreshold
 {
     return OSAHashDistanceThreshold;

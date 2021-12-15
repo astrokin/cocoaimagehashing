@@ -50,6 +50,14 @@
     return result;
 }
 
+- (OSHashType)hashByte:(const unsigned char *)pixelByte length:(int)length {
+    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
+    OSHashType result = [self hashByte:pixelByte
+                                length:length
+                        withProviderId:providerId];
+    return result;
+}
+
 - (BOOL)compareImageData:(NSData *)leftHandImageData
                       to:(NSData *)rightHandImageData
 {
@@ -116,6 +124,13 @@
 {
     id<OSImageHashingProvider> provider = OSImageHashingProviderFromImageHashingProviderId(providerId);
     OSHashType result = [provider hashImageData:imageData];
+    return result;
+}
+
+- (OSHashType)hashByte:(const unsigned char *)pixelByte length:(int)length withProviderId:(OSImageHashingProviderId)providerId {
+    id<OSImageHashingProvider> provider = OSImageHashingProviderFromImageHashingProviderId(providerId);
+    OSHashType result = [provider hashByte:pixelByte
+                                    length:length];
     return result;
 }
 
