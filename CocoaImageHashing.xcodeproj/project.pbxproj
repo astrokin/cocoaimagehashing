@@ -2209,6 +2209,7 @@
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = "-Wno-declaration-after-statement";
 			};
 			name = Release;
 		};
