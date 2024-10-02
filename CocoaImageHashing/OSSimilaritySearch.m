@@ -43,27 +43,29 @@
     }
     OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
     for (;;) {
+      @autoreleasepool {
         OSTuple<NSString *, NSData *> __block *inputTuple = imageStreamHandler();
         if (!inputTuple) {
-            break;
+          break;
         }
         NSData * __unsafe_unretained imageData = inputTuple->_second;
         if (!imageData) {
-            continue;
+          continue;
         }
         dispatch_semaphore_wait(hashingSemaphore, DISPATCH_TIME_FOREVER);
         dispatch_group_async(hashingDispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
           OSHashType hashResult = [hashingProvider hashImageData:imageData];
           if (hashResult != OSHashTypeError) {
-              OSHashResultTuple<NSString *> *resultTuple = [OSHashResultTuple new];
-              resultTuple->_first = inputTuple->_first;
-              resultTuple->_hashResult = hashResult;
-              OSSpinLockLock(&lock);
-              [fingerPrintedTuples addObject:resultTuple];
-              OSSpinLockUnlock(&lock);
+            OSHashResultTuple<NSString *> *resultTuple = [OSHashResultTuple new];
+            resultTuple->_first = inputTuple->_first;
+            resultTuple->_hashResult = hashResult;
+            OSSpinLockLock(&lock);
+            [fingerPrintedTuples addObject:resultTuple];
+            OSSpinLockUnlock(&lock);
           }
           dispatch_semaphore_signal(hashingSemaphore);
         });
+      }
     }
     dispatch_group_wait(hashingDispatchGroup, DISPATCH_TIME_FOREVER);
     [fingerPrintedTuples enumeratePairCombinationsUsingBlock:^(OSHashResultTuple * __unsafe_unretained leftHandTuple, OSHashResultTuple * __unsafe_unretained rightHandTuple) {
