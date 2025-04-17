@@ -109,21 +109,22 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
 - (NSData *)RGBABitmapDataForResizedImageWithWidth:(NSUInteger)width
                                          andHeight:(NSUInteger)height
 {
+    NSBitmapImageRep *imageRep = nil;
+    unsigned char *pixels;
+    
     NSBitmapImageRep *sourceImageRep = [NSBitmapImageRep imageRepWithData:self];
     if (!sourceImageRep) {
         return nil;
     }
-    NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepFrom:sourceImageRep
+    imageRep = [NSBitmapImageRep imageRepFrom:sourceImageRep
                                                   scaledToWidth:width
                                                  scaledToHeight:height
                                              usingInterpolation:NSImageInterpolationHigh];
     if (!imageRep) {
         return nil;
     }
-    unsigned char *pixels = [imageRep bitmapData];
-    NSData *result = [NSData dataWithBytes:pixels
-                                    length:OSBytesPerRowForWidth(width) * height];
-    return result;
+    pixels = [imageRep bitmapData];
+    return [NSData dataWithBytes:pixels length:OSBytesPerRowForWidth(width) * height];
 }
 
 @end
@@ -141,6 +142,7 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
                     scaledToHeight:(NSUInteger)height
                 usingInterpolation:(NSImageInterpolation)imageInterpolation
 {
+    NSGraphicsContext *context;
     NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
                                                                          pixelsWide:(NSInteger)width
                                                                          pixelsHigh:(NSInteger)height
@@ -152,7 +154,7 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
                                                                         bytesPerRow:(NSInteger)OSBytesPerRowForWidth(width)
                                                                        bitsPerPixel:0];
     [NSGraphicsContext saveGraphicsState];
-    NSGraphicsContext *context = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
+    context = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
     context.imageInterpolation = imageInterpolation;
     [NSGraphicsContext setCurrentContext:context];
     [sourceImageRep drawInRect:NSMakeRect(0, 0, width, height)];

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source           = { :git => 'https://github.com/astrokin/cocoaimagehashing.git', :tag => s.version }
 
-  s.platforms        = { :ios => '9.0', :osx => '10.10' }
+  s.platforms        = { :ios => '9.0' }
 
   s.requires_arc     = true
 
@@ -30,5 +30,4 @@ Pod::Spec.new do |s|
   ]
 
   s.ios.frameworks   = [ 'UIKit' ]
-  s.osx.frameworks   = [ 'Cocoa' ]
 end
