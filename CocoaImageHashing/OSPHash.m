@@ -30,19 +30,21 @@ static const OSHashDistanceType OSPHashDistanceThreshold = 10;
 
 - (OSHashType)hashImageData:(NSData *)imageData
 {
+    NSData *pixels = nil;
+    double greyscalePixels[OSPHashImageWidthInPixels][OSPHashImageHeightInPixels] = {{0.0}};
+    double dctPixels[OSPHashImageWidthInPixels][OSPHashImageHeightInPixels] = {{0.0}};
+    double dctAverage;
+    
     NSAssert(imageData, @"Image data must not be null");
-    NSData *pixels = [imageData RGBABitmapDataForResizedImageWithWidth:OSPHashImageWidthInPixels
+    pixels = [imageData RGBABitmapDataForResizedImageWithWidth:OSPHashImageWidthInPixels
                                                              andHeight:OSPHashImageHeightInPixels];
     if (!pixels) {
         return OSHashTypeError;
     }
-    double greyscalePixels[OSPHashImageWidthInPixels][OSPHashImageHeightInPixels] = {{0.0}};
-    double dctPixels[OSPHashImageWidthInPixels][OSPHashImageHeightInPixels] = {{0.0}};
     greyscale_pixels_rgba_32_32([pixels bytes], greyscalePixels);
     fast_dct_rgba_32_32(greyscalePixels, dctPixels);
-    double dctAverage = fast_avg_no_first_el_rgba_8_8(dctPixels);
-    OSHashType result = phash_rgba_8_8(dctPixels, dctAverage);
-    return result;
+    dctAverage = fast_avg_no_first_el_rgba_8_8(dctPixels);
+    return phash_rgba_8_8(dctPixels, dctAverage);;
 }
 
 - (OSHashDistanceType)hashDistanceSimilarityThreshold

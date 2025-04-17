@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1857,7 +1857,6 @@
 				};
 			};
 			buildConfigurationList = CADF6BAC1BC8EF9A0039E5A8 /* Build configuration list for PBXProject "CocoaImageHashing" */;
-			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1865,6 +1864,7 @@
 				Base,
 			);
 			mainGroup = CADF6BA81BC8EF9A0039E5A8;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = CADF6BB31BC8EF9A0039E5A8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2186,7 +2186,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = watchos;
@@ -2204,7 +2208,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = watchos;
@@ -2217,7 +2225,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = watchos;
@@ -2230,7 +2242,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = watchos;
@@ -2248,7 +2264,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = appletvos;
@@ -2266,7 +2286,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = appletvos;
@@ -2299,7 +2323,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = appletvos;
@@ -2312,7 +2340,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = appletvos;
@@ -2365,7 +2397,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = iphoneos;
@@ -2384,7 +2420,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = iphoneos;
@@ -2401,7 +2441,11 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = iphoneos;
@@ -2416,7 +2460,11 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = iphoneos;
@@ -2635,7 +2683,11 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = macosx;
@@ -2653,7 +2705,11 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = CocoaImageHashing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashing;
 				PRODUCT_NAME = CocoaImageHashing;
 				SDKROOT = macosx;
@@ -2666,7 +2722,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = macosx;
@@ -2679,7 +2739,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CocoaImageHashingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.operationalsemantics.CocoaImageHashingTests;
 				PRODUCT_NAME = CocoaImageHashingTests;
 				SDKROOT = macosx;

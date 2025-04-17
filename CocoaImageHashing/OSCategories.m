@@ -32,10 +32,12 @@
 - (void)enumeratePairCombinationsUsingBlock:(void (^)(id __unsafe_unretained leftHand, id __unsafe_unretained rightHand))block
 {
     NSUInteger count = [self count];
+    id __unsafe_unretained *objects = NULL;
+    
     if (!count) {
         return;
     }
-    id __unsafe_unretained *objects = (id __unsafe_unretained *)malloc(sizeof(id) * count);
+    objects = (id __unsafe_unretained *)malloc(sizeof(id) * count);
     if (!objects) {
         return;
     }
@@ -67,23 +69,34 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
                                          andHeight:(NSUInteger)height
 {
     UIImage *baseImage = [UIImage imageWithData:self];
+    CGImageRef imageRef = NULL;
+    CGColorSpaceRef colorSpace = NULL;
+    NSUInteger bytesPerRow = 0;
+    NSUInteger bitsPerComponent = 8;
+    NSMutableData *data = nil;
+    CGContextRef context = NULL;
+    CGRect rect;
+
     if (!baseImage) {
         return nil;
     }
-    CGImageRef imageRef = [baseImage CGImage];
+
+    imageRef = [baseImage CGImage];
     if (!imageRef) {
         return nil;
     }
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    NSUInteger bytesPerRow = OSBytesPerRowForWidth(width);
-    NSUInteger bitsPerComponent = 8;
-    NSMutableData *data = [NSMutableData dataWithLength:height * bytesPerRow];
-    CGContextRef context = CGBitmapContextCreate([data mutableBytes], width, height, bitsPerComponent, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+
+    colorSpace = CGColorSpaceCreateDeviceRGB();
+    bytesPerRow = OSBytesPerRowForWidth(width);
+    data = [NSMutableData dataWithLength:height * bytesPerRow];
+    context = CGBitmapContextCreate([data mutableBytes], width, height, bitsPerComponent, bytesPerRow, colorSpace,
+                                    kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
-    CGRect rect = CGRectMake(0, 0, width, height);
+    
+    rect = CGRectMake(0, 0, width, height);
     CGContextDrawImage(context, rect, imageRef);
     CGContextRelease(context);
+
     return data;
 }
 

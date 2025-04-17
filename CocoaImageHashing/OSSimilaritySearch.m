@@ -31,23 +31,28 @@
             forImageStreamHandler:(OSTuple<OSImageId *, NSData *> * (^)(void))imageStreamHandler
                  forResultHandler:(void (^)(OSImageId * __unsafe_unretained leftHandImageId, OSImageId * __unsafe_unretained rightHandImageId))resultHandler
 {
-    NSAssert(imageStreamHandler, @"Image stream handler must not be nil");
-    NSAssert(resultHandler, @"Result handler must not be nil");
     NSMutableArray<OSHashResultTuple<NSString *> *> __block *fingerPrintedTuples = [NSMutableArray new];
     NSUInteger cpuCount = [[NSProcessInfo processInfo] processorCount];
     dispatch_semaphore_t hashingSemaphore = dispatch_semaphore_create((long)cpuCount);
     dispatch_group_t hashingDispatchGroup = dispatch_group_create();
-    id<OSImageHashingProvider> hashingProvider = OSImageHashingProviderFromImageHashingProviderId(imageHashingProviderId);
+    id<OSImageHashingProvider> hashingProvider = nil;
+    OSSpinLock volatile __block lock;
+    NSData * __unsafe_unretained imageData;
+    
+    NSAssert(imageStreamHandler, @"Image stream handler must not be nil");
+    NSAssert(resultHandler, @"Result handler must not be nil");
+    
+    hashingProvider = OSImageHashingProviderFromImageHashingProviderId(imageHashingProviderId);
     if (!hashingProvider) {
         return;
     }
-    OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
+    lock = OS_SPINLOCK_INIT;
     for (;;) {
         OSTuple<NSString *, NSData *> __block *inputTuple = imageStreamHandler();
         if (!inputTuple) {
             break;
         }
-        NSData * __unsafe_unretained imageData = inputTuple->_second;
+        imageData = inputTuple->_second;
         if (!imageData) {
             continue;
         }
@@ -78,9 +83,12 @@
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                       forImageStreamHandler:(OSTuple<OSImageId *, NSData *> * (^)(void))imageStreamHandler
 {
-    NSAssert(imageStreamHandler, @"Image stream handler must not be nil");
     NSMutableArray<OSTuple<NSString *, NSString *> *> *tuples = [NSMutableArray new];
-    OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
+    OSSpinLock volatile __block lock;
+    
+    NSAssert(imageStreamHandler, @"Image stream handler must not be nil");
+    
+    lock = OS_SPINLOCK_INIT;
     [self similarImagesWithProvider:imageHashingProviderId
           withHashDistanceThreshold:hashDistanceThreshold
               forImageStreamHandler:imageStreamHandler
@@ -98,9 +106,12 @@
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                                   forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)imageTuples
 {
-    NSAssert(imageTuples, @"Image tuple array must not be nil");
     NSUInteger __block i = 0;
-    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self
+    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result;
+    
+    NSAssert(imageTuples, @"Image tuple array must not be nil");
+    
+    result = [self
         similarImagesWithProvider:imageHashingProviderId
         withHashDistanceThreshold:hashDistanceThreshold
             forImageStreamHandler:^OSTuple<OSImageId *, NSData *> * {
@@ -116,9 +127,10 @@
 
 - (NSDictionary<OSImageId *, NSSet<OSImageId *> *> *)dictionaryFromSimilarImagesResult:(NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImageTuples
 {
-    NSAssert(similarImageTuples, @"Similar image tuple array must not be nil");
     NSMutableDictionary<OSImageId *, OSImageId *> *representatives = [NSMutableDictionary new];
     NSMutableDictionary<OSImageId *, NSMutableSet<OSImageId *> *> *result = [NSMutableDictionary new];
+    OSImageId * __unsafe_unretained secondRep;
+    NSAssert(similarImageTuples, @"Similar image tuple array must not be nil");
     for (OSTuple<OSImageId *, OSImageId *> *tuple in similarImageTuples) {
         OSImageId * __unsafe_unretained first = tuple->_first;
         OSImageId * __unsafe_unretained second = tuple->_second;
@@ -128,7 +140,7 @@
                 representatives[first] = firstRep = first;
                 result[first] = [NSMutableSet set];
             }
-            OSImageId * __unsafe_unretained secondRep = representatives[second];
+            secondRep = representatives[second];
             if (!secondRep) {
                 representatives[second] = firstRep;
             }

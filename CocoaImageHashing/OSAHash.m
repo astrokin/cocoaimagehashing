@@ -30,14 +30,13 @@ static const OSHashDistanceType OSAHashDistanceThreshold = 10;
 
 - (OSHashType)hashImageData:(NSData *)imageData
 {
+    NSData *pixels = nil;
     NSAssert(imageData, @"Image data must not be null");
-    NSData *pixels = [imageData RGBABitmapDataForResizedImageWithWidth:OSAHashImageWidthInPixels
-                                                             andHeight:OSAHashImageHeightInPixels];
+    pixels = [imageData RGBABitmapDataForResizedImageWithWidth:OSAHashImageWidthInPixels andHeight:OSAHashImageHeightInPixels];
     if (!pixels) {
         return OSHashTypeError;
     }
-    OSHashType result = ahash_rgba_8_8([pixels bytes]);
-    return result;
+    return ahash_rgba_8_8([pixels bytes]);
 }
 
 - (OSHashDistanceType)hashDistanceSimilarityThreshold

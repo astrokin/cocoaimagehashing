@@ -17,13 +17,14 @@
 
 - (OSHashType)hashImage:(OSImageType *)image
 {
+    NSData *data = nil;
+    
     NSAssert(image, @"Image must not be null");
-    NSData *data = [image dataRepresentation];
+    data = [image dataRepresentation];
     if (!data) {
         return OSHashTypeError;
     }
-    OSHashType result = [self hashImageData:data];
-    return result;
+    return [self hashImageData:data];
 }
 
 - (BOOL)compareImageData:(NSData *)leftHandImageData
@@ -31,10 +32,9 @@
 {
     NSAssert(leftHandImageData, @"Left hand image data must not be null");
     NSAssert(rightHandImageData, @"Right hand image data must not be null");
-    BOOL result = [self compareImageData:leftHandImageData
+    return [self compareImageData:leftHandImageData
                                       to:rightHandImageData
                    withDistanceThreshold:[self hashDistanceSimilarityThreshold]];
-    return result;
 }
 
 - (OSHashDistanceType)hashDistance:(OSHashType)leftHand
@@ -49,15 +49,17 @@
                       to:(NSData *)rightHandImageData
    withDistanceThreshold:(OSHashDistanceType)distanceThreshold
 {
+    OSHashType leftHandImageDataHash;
+    OSHashType rightHandImageDataHash;
+    OSHashDistanceType distance;
     NSAssert(leftHandImageData, @"Left hand image data must not be null");
     NSAssert(rightHandImageData, @"Right hand image data must not be null");
-    OSHashType leftHandImageDataHash = [self hashImageData:leftHandImageData];
-    OSHashType rightHandImageDataHash = [self hashImageData:rightHandImageData];
+    leftHandImageDataHash = [self hashImageData:leftHandImageData];
+    rightHandImageDataHash = [self hashImageData:rightHandImageData];
     if (leftHandImageDataHash == OSHashTypeError || rightHandImageDataHash == OSHashTypeError) {
         return NO;
     }
-    OSHashDistanceType distance = [self hashDistance:leftHandImageDataHash
-                                                  to:rightHandImageDataHash];
+    distance = [self hashDistance:leftHandImageDataHash to:rightHandImageDataHash];
     return distance < distanceThreshold;
 }
 
@@ -65,13 +67,18 @@
                                                    forLeftHandImageData:(NSData *)leftHandImageData
                                                   forRightHandImageData:(NSData *)rightHandImageData
 {
+    OSHashType leftHandImageHash;
+    OSHashType rightHandImageHash;
+    OSHashType baseImageHash;
+    OSHashDistanceType distanceToLeftImageData;
+    OSHashDistanceType distanceToRightImageData;
     NSAssert(baseImageData, @"Base image data must not be null");
     NSAssert(rightHandImageData, @"Right hand image data must not be null");
     NSAssert(leftHandImageData, @"Left hand image data must not be null");
     NSAssert(rightHandImageData, @"Right hand image data must not be null");
-    OSHashType leftHandImageHash = [self hashImageData:leftHandImageData];
-    OSHashType rightHandImageHash = [self hashImageData:rightHandImageData];
-    OSHashType baseImageHash = [self hashImageData:baseImageData];
+    leftHandImageHash = [self hashImageData:leftHandImageData];
+    rightHandImageHash = [self hashImageData:rightHandImageData];
+    baseImageHash = [self hashImageData:baseImageData];
     if (baseImageHash == OSHashTypeError) {
         return NSOrderedSame;
     } else if (leftHandImageHash == OSHashTypeError) {
@@ -79,10 +86,8 @@
     } else if (rightHandImageHash == OSHashTypeError) {
         return NSOrderedAscending;
     }
-    OSHashDistanceType distanceToLeftImageData = [self hashDistance:leftHandImageHash
-                                                                 to:baseImageHash];
-    OSHashDistanceType distanceToRightImageData = [self hashDistance:rightHandImageHash
-                                                                  to:baseImageHash];
+    distanceToLeftImageData = [self hashDistance:leftHandImageHash to:baseImageHash];
+    distanceToRightImageData = [self hashDistance:rightHandImageHash to:baseImageHash];
     if (distanceToLeftImageData < distanceToRightImageData) {
         return NSOrderedAscending;
     } else if (distanceToLeftImageData > distanceToRightImageData) {
